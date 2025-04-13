@@ -1,12 +1,14 @@
 import json
 import sys
 import time
+import os
 import pygetwindow as gw
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtCore import Qt, QPoint
 from PyQt5.QtGui import QPainter, QColor
+from utils.mapping_manager import MappingManager
 
-mapping = {}
+mapping_manager = MappingManager()
 
 # لیست کلیدهایی که می‌خوایم مپ کنیم
 keys_to_map = ['A', 'S', 'D', 'W']
@@ -48,14 +50,12 @@ class TransparentOverlay(QWidget):
         if event.button() == Qt.LeftButton:
             pos = event.pos()
             key = keys_to_map[current_key_index]
-            mapping[key] = {"x": pos.x(), "y": pos.y()}
-            print(f"🎯 Position for the key '{key}': {mapping[key]}")
+            mapping_manager.set_mapping("default", key, [pos.x(), pos.y()])
+            print(f"🎯 Position for the key '{key}': ({pos.x()}, {pos.y()})")
             current_key_index += 1
 
             if current_key_index >= len(keys_to_map):
-                with open("mapping.json", "w") as f:
-                    json.dump(mapping, f, indent=4)
-                print("✅ mapping.json saved.")
+                print("✅ Mappings saved successfully.")
                 self.close()
 
     def paintEvent(self, event):
