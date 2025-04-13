@@ -5,9 +5,9 @@ from input_mapper import listen_for_keys
 def start_scrcpy():
     try:
         subprocess.Popen(["scrcpy"])
-        print("📱 scrcpy اجرا شد.")
+        print("📱 scrcpy was run.")
     except FileNotFoundError:
-        print("❌ scrcpy نصب نیست یا در PATH نیست. لطفاً نصب کن.")
+        print("❌ scrcpy is not installed or is not in the PATH. Please install it first.")
 
 def main():
     parser = argparse.ArgumentParser()
