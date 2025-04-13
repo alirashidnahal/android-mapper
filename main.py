@@ -1,13 +1,25 @@
-from ui.main_window import launch_ui
-from listener.keyboard_listener import start_listener
-from ui.mapping_overlay import start_overlay
-import threading
-import sys
+import argparse
+import subprocess
+from input_mapper import listen_for_keys
 
-if __name__ == "__main__":
-    if "--mapping" in sys.argv:
+def start_scrcpy():
+    try:
+        subprocess.Popen(["scrcpy"])
+        print("📱 scrcpy اجرا شد.")
+    except FileNotFoundError:
+        print("❌ scrcpy نصب نیست یا در PATH نیست. لطفاً نصب کن.")
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--mapping", action="store_true", help="define custom key mappings")
+    args = parser.parse_args()
+
+    if args.mapping:
+        from ui.mapping_overlay import start_overlay
         start_overlay()
     else:
-        listener_thread = threading.Thread(target=start_listener, daemon=True)
-        listener_thread.start()
-        launch_ui()
+        start_scrcpy()
+        listen_for_keys()
+
+if __name__ == "__main__":
+    main()
