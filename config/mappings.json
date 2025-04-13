@@ -1,6 +1,19 @@
 {
-    "w": [500, 300],
-    "a": [400, 400],
-    "s": [500, 500],
-    "d": [600, 400]
+    "metadata": {
+        "version": "1.0.0",
+        "created_at": "2024-04-13",
+        "description": "Android Input Mapper Configuration",
+        "screen_resolution": "1920x1080"
+    },
+    "games": {
+        "default": {
+            "name": "Default Game",
+            "mappings": {
+                "w": [500, 300],
+                "a": [400, 400],
+                "s": [500, 500],
+                "d": [600, 400]
+            }
+        }
+    }
 }
